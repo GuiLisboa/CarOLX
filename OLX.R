@@ -1,10 +1,6 @@
 extrairAnuncios <- function(listaPaginas, info_adicional = TRUE) {
-  ### INPUTS:
-  # url_pagina: url de uma pagina do olx com uma lista de links de anúncios.
-  # info_adicional: variavel booleana. se verdadeiro, faz o scraping de dados adicionais do anuncio
-  # ... deve ser usado apenas para apartamentos, pois a sintaxe do html para quartos é diferente
   
-  library(magrittr) # não vivo sem esse pacote
+  library(magrittr) # nÃ£o vivo sem esse pacote
   library(rvest) # principal pacote para web-scraping
   library(readr) # usado para extrair numeros de texto
   library(stringr) # usado para o data cleaning
@@ -27,7 +23,7 @@ extrairAnuncios <- function(listaPaginas, info_adicional = TRUE) {
   # extrair titulo do anuncio
   col_titles <- mycurl %>% html_nodes(".OLXad-list-link") %>% html_attr("title")
  
-   # extrair preço
+   # extrair preÃ§o
   precos <- lapply(x, . %>% html_nodes(".col-3"))
   precos %<>% lapply(html_text)
   precos %<>% unlist()
@@ -53,7 +49,7 @@ extrairAnuncios <- function(listaPaginas, info_adicional = TRUE) {
   bairros <- mycurl %>% html_nodes(".OLXad-list-line-2") %>% html_text()
   bairros %<>% str_replace_all("[\t]", "")
   bairros %<>% str_replace_all("[\n]", "")
-  bairros %<>% str_replace_all("Anúncio Profissional", "")
+  bairros %<>% str_replace_all("AnÃºncio Profissional", "")
   bairros %<>% str_replace("-", "")
   bairros %<>% str_trim()
   col_bairros <- bairros
